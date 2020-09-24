@@ -14,6 +14,9 @@
     </releaseNotes>
     <tags>taucode db database sqlite</tags>
     <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="TauCode.Db" version="1.3.0" />
+      </group>
     </dependencies>
   </metadata>
   <files>
