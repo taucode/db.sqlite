@@ -1,0 +1,3 @@
+2020-09-24
+==========
+    1. Created this project in order to move SQLite-specific functions from TauCode.Db libary.
