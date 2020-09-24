@@ -3,9 +3,52 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2B954FD8-EA7B-4208-BE87-DA158109AB03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{32316E0F-61A2-4CF9-A2D5-761097F9BA3A}"
+	ProjectSection(SolutionItems) = preProject
+		build\azure-pipelines-dev.yml = build\azure-pipelines-dev.yml
+		build\azure-pipelines.yml = build\azure-pipelines.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{64246254-0836-4187-A54A-A7033F7FC9E6}"
+	ProjectSection(SolutionItems) = preProject
+		misc\changelog.txt = misc\changelog.txt
+		misc\todo.txt = misc\todo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E4F08899-AB65-4556-8832-9D5DB94F5B97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{F960B03E-11DC-4A09-BB36-4A8FF79272A2}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\TauCode.Db.SQLite.nuspec = nuget\TauCode.Db.SQLite.nuspec
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite", "src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj", "{112D29F2-8090-4CFA-931F-2235020EF32A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite.Tests", "test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj", "{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{112D29F2-8090-4CFA-931F-2235020EF32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112D29F2-8090-4CFA-931F-2235020EF32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112D29F2-8090-4CFA-931F-2235020EF32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112D29F2-8090-4CFA-931F-2235020EF32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{112D29F2-8090-4CFA-931F-2235020EF32A} = {2B954FD8-EA7B-4208-BE87-DA158109AB03}
+		{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E} = {E4F08899-AB65-4556-8832-9D5DB94F5B97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95CC4C5F-7C86-4F7F-86E0-9BB049C2FBA5}
