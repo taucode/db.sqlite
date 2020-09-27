@@ -1,0 +1,75 @@
+﻿{
+  "name": "language",
+  "columns": [
+    {
+      "name": "id",
+      "type": {
+        "name": "UNIQUEIDENTIFIER",
+        "size": null,
+        "precision": null,
+        "scale": null,
+        "properties": {}
+      },
+      "isNullable": false,
+      "identity": null,
+      "default": null,
+      "properties": {}
+    },
+    {
+      "name": "code",
+      "type": {
+        "name": "TEXT",
+        "size": null,
+        "precision": null,
+        "scale": null,
+        "properties": {}
+      },
+      "isNullable": false,
+      "identity": null,
+      "default": null,
+      "properties": {}
+    },
+    {
+      "name": "name",
+      "type": {
+        "name": "TEXT",
+        "size": null,
+        "precision": null,
+        "scale": null,
+        "properties": {}
+      },
+      "isNullable": false,
+      "identity": null,
+      "default": null,
+      "properties": {}
+    }
+  ],
+  "primaryKey": {
+    "name": "PK_language",
+    "columns": [
+      {
+        "name": "id",
+        "sortDirection": "ascending",
+        "properties": {}
+      }
+    ],
+    "properties": {}
+  },
+  "foreignKeys": [],
+  "indexes": [
+    {
+      "name": "UX_language_code",
+      "tableName": "language",
+      "columns": [
+        {
+          "name": "code",
+          "sortDirection": "ascending",
+          "properties": {}
+        }
+      ],
+      "isUnique": true,
+      "properties": {}
+    }
+  ],
+  "properties": {}
+}

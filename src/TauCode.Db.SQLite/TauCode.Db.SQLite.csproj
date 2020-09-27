@@ -5,7 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TauCode.Db" Version="1.3.2-dev-2020-09-24-00-13" />
+    <None Remove="Resources\grammar.lisp" />
+    <None Remove="Resources\reserved-words.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\grammar.lisp" />
+    <EmbeddedResource Include="Resources\reserved-words.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.1" />
+    <PackageReference Include="TauCode.Db" Version="1.3.2-dev-2020-09-27-08-24" />
   </ItemGroup>
 
 </Project>

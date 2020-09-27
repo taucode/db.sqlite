@@ -7,9 +7,58 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ocean\assets\ak.png" />
+    <None Remove="Resources\ocean\assets\ak.txt" />
+    <None Remove="Resources\ocean\assets\deserea.png" />
+    <None Remove="Resources\ocean\assets\deserea.txt" />
+    <None Remove="Resources\ocean\assets\ira.png" />
+    <None Remove="Resources\ocean\assets\ira.txt" />
+    <None Remove="Resources\ocean\assets\marina.png" />
+    <None Remove="Resources\ocean\assets\marina.txt" />
+    <None Remove="Resources\ocean\assets\olia.png" />
+    <None Remove="Resources\ocean\assets\olia.txt" />
+    <None Remove="Resources\ocean\data-db.json" />
+    <None Remove="Resources\ocean\script-create-tables.sql" />
+    <None Remove="Resources\ocean\script-data.sql" />
+    <None Remove="Resources\rho\data-db.json" />
+    <None Remove="Resources\rho\data-language.json" />
+    <None Remove="Resources\rho\metadata-db.json" />
+    <None Remove="Resources\rho\metadata-language.json" />
+    <None Remove="Resources\rho\script-drop-tables.sql" />
+    <None Remove="Resources\rho\script-insert-data.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ocean\assets\ak.png" />
+    <EmbeddedResource Include="Resources\ocean\assets\ak.txt" />
+    <EmbeddedResource Include="Resources\ocean\assets\deserea.png" />
+    <EmbeddedResource Include="Resources\ocean\assets\deserea.txt" />
+    <EmbeddedResource Include="Resources\ocean\assets\ira.png" />
+    <EmbeddedResource Include="Resources\ocean\assets\ira.txt" />
+    <EmbeddedResource Include="Resources\ocean\assets\marina.png" />
+    <EmbeddedResource Include="Resources\ocean\assets\marina.txt" />
+    <EmbeddedResource Include="Resources\ocean\assets\olia.png" />
+    <EmbeddedResource Include="Resources\ocean\assets\olia.txt" />
+    <EmbeddedResource Include="Resources\ocean\data-db.json" />
+    <EmbeddedResource Include="Resources\ocean\script-create-tables.sql" />
+    <EmbeddedResource Include="Resources\ocean\script-data.sql" />
+    <EmbeddedResource Include="Resources\rho\data-db.json" />
+    <EmbeddedResource Include="Resources\rho\data-language.json" />
+    <EmbeddedResource Include="Resources\rho\metadata-db.json" />
+    <EmbeddedResource Include="Resources\rho\metadata-language.json" />
+    <EmbeddedResource Include="Resources\rho\script-drop-tables.sql" />
+    <EmbeddedResource Include="Resources\rho\script-insert-data.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator.Runner" Version="3.2.9" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj" />
   </ItemGroup>
 
 </Project>
