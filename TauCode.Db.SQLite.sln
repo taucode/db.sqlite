@@ -24,9 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{F960B03E
 		nuget\TauCode.Db.SQLite.nuspec = nuget\TauCode.Db.SQLite.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite", "src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj", "{112D29F2-8090-4CFA-931F-2235020EF32A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Db.SQLite", "src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj", "{112D29F2-8090-4CFA-931F-2235020EF32A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite.Tests", "test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj", "{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Db.SQLite.Tests", "test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj", "{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

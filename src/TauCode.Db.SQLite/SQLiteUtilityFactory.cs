@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SQLite;
 
 namespace TauCode.Db.SQLite
 {
@@ -13,16 +14,15 @@ namespace TauCode.Db.SQLite
         public IDbDialect GetDialect() => SQLiteDialect.Instance;
 
         public IDbScriptBuilder CreateScriptBuilder(string schema) => new SQLiteScriptBuilder();
+        public IDbConnection CreateConnection() => new SQLiteConnection();
 
-        public IDbInspector CreateDbInspector(IDbConnection connection, string schema) => new SQLiteInspector(connection);
+        public IDbInspector CreateInspector(IDbConnection connection, string schema) => new SQLiteInspector(connection);
 
         public IDbTableInspector CreateTableInspector(IDbConnection connection, string schema, string tableName) =>
             new SQLiteTableInspector(connection, tableName);
 
         public IDbCruder CreateCruder(IDbConnection connection, string schema) => new SQLiteCruder(connection);
 
-        public IDbSerializer CreateDbSerializer(IDbConnection connection, string schema) => new SQLiteSerializer(connection);
-
-        public IDbConverter CreateDbConverter() => new SQLiteConverter();
+        public IDbSerializer CreateSerializer(IDbConnection connection, string schema) => new SQLiteSerializer(connection);
     }
 }

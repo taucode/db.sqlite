@@ -31,13 +31,13 @@ namespace TauCode.Db.SQLite.Tests
 
             IDbScriptBuilder scriptBuilder = utilityFactory.CreateScriptBuilder(null);
 
-            IDbInspector dbInspector = utilityFactory.CreateDbInspector(connection, null);
+            IDbInspector dbInspector = utilityFactory.CreateInspector(connection, null);
 
             IDbTableInspector tableInspector = utilityFactory.CreateTableInspector(connection, null, "language");
 
             IDbCruder cruder = utilityFactory.CreateCruder(connection, null);
 
-            IDbSerializer dbSerializer = utilityFactory.CreateDbSerializer(connection, null);
+            IDbSerializer dbSerializer = utilityFactory.CreateSerializer(connection, null);
 
             // Assert
             Assert.That(connection, Is.TypeOf<SQLiteConnection>());
