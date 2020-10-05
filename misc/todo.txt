@@ -1,0 +1,3 @@
+2020-10-05
+==========
+    1. Rename TauCode.Foo.nuspec to package.nuspec in all projects.
