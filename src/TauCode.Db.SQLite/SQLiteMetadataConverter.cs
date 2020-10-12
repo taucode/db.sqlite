@@ -6,11 +6,11 @@ using TauCode.Db.Model;
 
 namespace TauCode.Db.SQLite
 {
-    public class SQLiteConverter : DbUtilityBase, IDbConverter
+    public class SQLiteMetadataConverter : DbUtilityBase, IDbMetadataConverter
     {
         #region Constructor
 
-        public SQLiteConverter()
+        public SQLiteMetadataConverter()
             : base(null, false, true)
         {
         }

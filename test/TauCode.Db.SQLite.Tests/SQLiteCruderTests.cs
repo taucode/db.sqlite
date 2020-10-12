@@ -50,7 +50,7 @@ namespace TauCode.Db.SQLite.Tests
             };
 
             // Act
-            _cruder.InsertRow("language", language);
+            _cruder.InsertRow("language", language, s => true);
 
             // Assert
             using (var command = this.Connection.CreateCommand())
@@ -89,7 +89,7 @@ namespace TauCode.Db.SQLite.Tests
                 "enum_string",
                 new EnumValueConverter<UserRole>(DbType.String));
 
-            _cruder.InsertRow("hoo", hoo);
+            _cruder.InsertRow("hoo", hoo, s => true);
 
             // Assert
             using (var command = this.Connection.CreateCommand())
@@ -120,7 +120,7 @@ namespace TauCode.Db.SQLite.Tests
             };
 
             // Act
-            var ex = Assert.Throws<TauDbException>(() => _cruder.InsertRow("language", language));
+            var ex = Assert.Throws<TauDbException>(() => _cruder.InsertRow("language", language, s => true));
 
             // Assert
             Assert.That(ex.Message, Does.StartWith("Could not transform value"));
@@ -140,7 +140,7 @@ namespace TauCode.Db.SQLite.Tests
             };
 
             // Act
-            var ex = Assert.Throws<TauDbException>(() => _cruder.InsertRow("language", language));
+            var ex = Assert.Throws<TauDbException>(() => _cruder.InsertRow("language", language, s => true));
 
             // Assert
             Assert.That(ex.Message, Is.EqualTo("Column not found: 'wrong_column_name'."));
@@ -159,7 +159,7 @@ namespace TauCode.Db.SQLite.Tests
                 name = "Italian",
             };
 
-            _cruder.InsertRow("language", language);
+            _cruder.InsertRow("language", language, s => true);
 
             // Act
             var updated = _cruder.UpdateRow(
@@ -205,7 +205,7 @@ namespace TauCode.Db.SQLite.Tests
                 name = "Italian",
             };
 
-            _cruder.InsertRow("language", language);
+            _cruder.InsertRow("language", language, s => true);
 
             // Act
             var ex = Assert.Throws<TauDbException>(() => _cruder.UpdateRow(
@@ -233,7 +233,7 @@ namespace TauCode.Db.SQLite.Tests
                 name = "Italian",
             };
 
-            _cruder.InsertRow("language", language);
+            _cruder.InsertRow("language", language, s => true);
 
             // Act
             var ex = Assert.Throws<TauDbException>(() => _cruder.UpdateRow(
@@ -262,7 +262,7 @@ namespace TauCode.Db.SQLite.Tests
                 name = "Italian",
             };
 
-            _cruder.InsertRow("language", language);
+            _cruder.InsertRow("language", language, s => true);
 
             // Act
             var ex = Assert.Throws<TauDbException>(() => _cruder.UpdateRow(
