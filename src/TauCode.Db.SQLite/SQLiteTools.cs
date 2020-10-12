@@ -35,7 +35,7 @@ namespace TauCode.Db.SQLite
         /// </returns>
         public static Tuple<string, string> CreateSQLiteDatabase()
         {
-            var tempDbFilePath = FileExtensions.CreateTempFilePath("zunit", ".sqlite");
+            var tempDbFilePath = FileTools.CreateTempFilePath("zunit", ".sqlite");
             SQLiteConnection.CreateFile(tempDbFilePath);
 
             var connectionString = $"Data Source={tempDbFilePath};Version=3;";
