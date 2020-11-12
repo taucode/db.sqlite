@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
+using TauCode.Db.Model;
 using TauCode.Extensions;
 
 namespace TauCode.Db.SQLite
@@ -26,7 +29,6 @@ namespace TauCode.Db.SQLite
             command.ExecuteNonQuery();
         }
 
-        // todo: move this to taucode.db
         /// <summary>
         /// Creates temporary .sqlite file and returns a SQLite connection string for this file.
         /// </summary>
@@ -41,6 +43,26 @@ namespace TauCode.Db.SQLite
             var connectionString = $"Data Source={tempDbFilePath};Version=3;";
 
             return Tuple.Create(tempDbFilePath, connectionString);
+        }
+
+        internal static TableMold ResolveExplicitPrimaryKey(this TableMold tableMold)
+        {
+            var pkColumn = tableMold.Columns.SingleOrDefault(x =>
+                ((Dictionary<string, string>)x.Properties).GetValueOrDefault("#is_explicit_primary_key") == "true");
+
+            if (pkColumn != null)
+            {
+                tableMold.PrimaryKey = new PrimaryKeyMold
+                {
+                    Name = $"PK_{tableMold.Name}",
+                    Columns = new List<string>
+                    {
+                        pkColumn.Name
+                    },
+                };
+            }
+
+            return tableMold;
         }
     }
 }

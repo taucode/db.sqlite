@@ -150,7 +150,7 @@ namespace TauCode.Db.SQLite.Parsing
             {
                 var tableMold = accumulator.GetLastResult<TableMold>();
                 var columnMold = tableMold.Columns.Last();
-                    //columnMold.MarkAsExplicitPrimaryKey();
+                columnMold.Properties["#is_explicit_primary_key"] = "true";
             };
 
             var autoincrement = (ActionNode)allSqlNodes.Single(x =>
@@ -159,7 +159,7 @@ namespace TauCode.Db.SQLite.Parsing
             {
                 var tableMold = accumulator.GetLastResult<TableMold>();
                 var columnMold = tableMold.Columns.Last();
-                columnMold.Identity = new ColumnIdentityMold();
+                columnMold.Identity = new ColumnIdentityMold("1", "1");
             };
 
             var defaultNull = (ActionNode)allSqlNodes.Single(x =>
@@ -214,24 +214,11 @@ namespace TauCode.Db.SQLite.Parsing
             {
                 var tableMold = accumulator.GetLastResult<TableMold>();
                 var primaryKey = tableMold.PrimaryKey;
-                var indexColumn = new IndexColumnMold
-                {
-                    Name = ((TextToken)token).Text,
-                };
-                primaryKey.Columns.Add(indexColumn);
+                primaryKey.Columns.Add(((TextToken)token).Text);
             };
 
             var pkColumnAscOrDesc = (ActionNode)allSqlNodes.Single(x =>
                 string.Equals(x.Name, "pk-asc-or-desc", StringComparison.InvariantCultureIgnoreCase));
-            pkColumnAscOrDesc.Action = (node, token, accumulator) =>
-            {
-                var tableInfo = accumulator.GetLastResult<TableMold>();
-                var primaryKey = tableInfo.PrimaryKey;
-                var indexColumn = primaryKey.Columns.Last();
-
-                var ascOrDesc = ((TextToken)token).Text.ToLowerInvariant();
-                indexColumn.SortDirection = SQLiteParsingHelper.SqlToSortDirection(ascOrDesc);
-            };
 
             var fk = (ActionNode)allSqlNodes.Single(x =>
                string.Equals(x.Name, "do-foreign-key", StringComparison.InvariantCultureIgnoreCase));
@@ -359,7 +346,7 @@ namespace TauCode.Db.SQLite.Parsing
                 var index = accumulator.GetLastResult<IndexMold>();
                 var columnInfo = index.Columns.Last();
 
-                var ascOrDesc = ((TextToken) token).Text.ToLowerInvariant();
+                var ascOrDesc = ((TextToken)token).Text.ToLowerInvariant();
                 columnInfo.SortDirection = SQLiteParsingHelper.SqlToSortDirection(ascOrDesc);
             };
 
