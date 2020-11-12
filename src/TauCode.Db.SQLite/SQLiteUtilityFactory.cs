@@ -1,9 +1,9 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SQLite;
 
 namespace TauCode.Db.SQLite
 {
-    // todo: check 'schemaName' is null! +ut.
     public class SQLiteUtilityFactory : IDbUtilityFactory
     {
         public static SQLiteUtilityFactory Instance { get; } = new SQLiteUtilityFactory();
@@ -14,16 +14,54 @@ namespace TauCode.Db.SQLite
 
         public IDbDialect GetDialect() => SQLiteDialect.Instance;
 
-        public IDbScriptBuilder CreateScriptBuilder(string schemaName) => new SQLiteScriptBuilder();
+        public IDbScriptBuilder CreateScriptBuilder(string schemaName)
+        {
+            CheckSchemaNameIsNull(schemaName);
+
+            return new SQLiteScriptBuilder();
+        }
+
         public IDbConnection CreateConnection() => new SQLiteConnection();
 
-        public IDbInspector CreateInspector(IDbConnection connection, string schemaName) => new SQLiteInspector(connection);
+        public IDbSchemaExplorer CreateSchemaExplorer(IDbConnection connection)
+        {
+            return new SQLiteSchemaExplorer((SQLiteConnection)connection);
+        }
 
-        public IDbTableInspector CreateTableInspector(IDbConnection connection, string schemaName, string tableName) =>
-            new SQLiteTableInspector(connection, tableName);
+        public IDbInspector CreateInspector(IDbConnection connection, string schemaName)
+        {
+            CheckSchemaNameIsNull(schemaName);
 
-        public IDbCruder CreateCruder(IDbConnection connection, string schemaName) => new SQLiteCruder(connection);
+            return new SQLiteInspector((SQLiteConnection)connection);
+        }
 
-        public IDbSerializer CreateSerializer(IDbConnection connection, string schemaName) => new SQLiteSerializer(connection);
+        public IDbTableInspector CreateTableInspector(IDbConnection connection, string schemaName, string tableName)
+        {
+            CheckSchemaNameIsNull(schemaName);
+
+            return new SQLiteTableInspector((SQLiteConnection)connection, tableName);
+        }
+
+        public IDbCruder CreateCruder(IDbConnection connection, string schemaName)
+        {
+            CheckSchemaNameIsNull(schemaName);
+
+            return new SQLiteCruder((SQLiteConnection)connection);
+        }
+
+        public IDbSerializer CreateSerializer(IDbConnection connection, string schemaName)
+        {
+            CheckSchemaNameIsNull(schemaName);
+
+            return new SQLiteSerializer((SQLiteConnection)connection);
+        }
+
+        private static void CheckSchemaNameIsNull(string schemaName, string schemaArgumentName = "schemaName")
+        {
+            if (schemaName != null)
+            {
+                throw new ArgumentException($"'{schemaArgumentName}' must be null.");
+            }
+        }
     }
 }

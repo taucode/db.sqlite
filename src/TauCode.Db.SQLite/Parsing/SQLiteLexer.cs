@@ -12,10 +12,11 @@ namespace TauCode.Db.SQLite.Parsing
             return new ITokenProducer[]
             {
                 new WhiteSpaceProducer(),
-                new WordTokenProducer(),
-                new SqlPunctuationTokenProducer(),
+                new WordProducer(),
+                new SqlPunctuationProducer(),
                 new IntegerProducer(IsAcceptableIntegerTerminator),
-                new SqlIdentifierTokenProducer(),
+                new SqlStringProducer(),
+                new SqlIdentifierProducer(),
             };
         }
 
