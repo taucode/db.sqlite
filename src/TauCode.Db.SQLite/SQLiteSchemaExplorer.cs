@@ -14,7 +14,7 @@ namespace TauCode.Db.SQLite
         {
         }
 
-        public override IReadOnlyList<string> GetSchemata() => new string[] { };
+        public override IReadOnlyList<string> GetSchemaNames() => new string[] { };
 
         public override IReadOnlyList<string> GetTableNames(string schemaName)
         {
@@ -320,7 +320,7 @@ ORDER BY
             throw new NotSupportedException();
         }
 
-        public override IReadOnlyList<string> GetSystemSchemata() => new string[] { };
+        public override IReadOnlyList<string> GetSystemSchemaNames() => new string[] { };
 
         public override string DefaultSchemaName => null;
     }
