@@ -1,3 +1,8 @@
-2020-10-05
+﻿2020-10-05
 ==========
 x   1. Rename TauCode.Foo.nuspec to package.nuspec in all projects.
+
+2021-04-17
+==========
+    1. Copy "EconeraTesting" ut-s (from TauCode.Db.SqlClient). Try to invoke a "value will be truncated" exception (SQLite seems to not show such behavior)
+

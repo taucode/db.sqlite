@@ -11,8 +11,5 @@ namespace TauCode.Db.SQLite
         }
 
         public override IDbUtilityFactory Factory => SQLiteUtilityFactory.Instance;
-
-        protected override IDbSchemaExplorer CreateSchemaExplorer(IDbConnection connection) =>
-            new SQLiteSchemaExplorer((SQLiteConnection)connection);
     }
 }

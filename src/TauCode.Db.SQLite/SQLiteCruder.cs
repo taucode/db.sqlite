@@ -15,7 +15,7 @@ namespace TauCode.Db.SQLite
         }
 
         public override IDbUtilityFactory Factory => SQLiteUtilityFactory.Instance;
-        protected override IDbValueConverter CreateDbValueConverter(ColumnMold column)
+        protected override IDbValueConverter CreateDbValueConverter(string tableName, ColumnMold column)
         {
             var typeName = column.Type.Name.ToLowerInvariant();
 
@@ -46,7 +46,7 @@ namespace TauCode.Db.SQLite
                     return new ByteArrayValueConverter();
 
                 default:
-                    throw new NotImplementedException();
+                    throw this.CreateColumnTypeNotSupportedException(typeName, column.Name, typeName);
             }
         }
 
@@ -83,8 +83,13 @@ namespace TauCode.Db.SQLite
 
 
                 default:
-                    throw new NotImplementedException();
+                    throw this.CreateColumnTypeNotSupportedException(tableName, column.Name, typeName);
             }
+        }
+
+        protected override void FitParameterValue(IDbDataParameter parameter)
+        {
+            // idle for now.
         }
     }
 }

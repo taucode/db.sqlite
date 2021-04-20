@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
-using TauCode.Db.Data;
-using TauCode.Db.Model;
 
 namespace TauCode.Db.SQLite
 {
@@ -12,15 +10,13 @@ namespace TauCode.Db.SQLite
             SQLiteConnection connection,
             Func<string> metadataJsonGetter,
             Func<string> dataJsonGetter,
-            Func<string, bool> tableNamePredicate = null,
-            Func<TableMold, DynamicRow, DynamicRow> rowTransformer = null)
+            Func<string, bool> tableNamePredicate = null)
             : base(
                 connection,
                 null,
                 metadataJsonGetter,
                 dataJsonGetter,
-                tableNamePredicate,
-                rowTransformer)
+                tableNamePredicate)
         {
         }
 

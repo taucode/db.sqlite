@@ -7,6 +7,7 @@ using System.Text;
 using TauCode.Db.Data;
 using TauCode.Db.DbValueConverters;
 using TauCode.Db.Exceptions;
+using TauCode.Db.Model;
 using TauCode.Extensions;
 
 namespace TauCode.Db.SQLite.Tests.DbCruder
@@ -127,7 +128,8 @@ CREATE TABLE [SmallTable](
             Assert.That(cruder.Factory, Is.SameAs(SQLiteUtilityFactory.Instance));
             Assert.That(cruder.SchemaName, Is.EqualTo(null));
             Assert.That(cruder.ScriptBuilder, Is.TypeOf<SQLiteScriptBuilder>());
-            Assert.That(cruder.RowInsertedCallback, Is.Null);
+            Assert.That(cruder.BeforeInsertRow, Is.Null);
+            Assert.That(cruder.AfterInsertRow, Is.Null);
         }
 
         [Test]
@@ -244,16 +246,16 @@ CREATE TABLE [SmallTable](
             };
 
             var row2 = new DynamicRow();
-            row2.SetValue("Id", new Guid("a776fd76-f2a8-4e09-9e69-b6d08e96c075"));
-            row2.SetValue("PersonId", 101);
-            row2.SetValue("Weight", 69.2m);
-            row2.SetValue("PersonMetaKey", (short)12);
-            row2.SetValue("IQ", 101.6m);
-            row2.SetValue("Temper", (short)4);
-            row2.SetValue("PersonOrdNumber", (byte)3);
-            row2.SetValue("MetricB", -3);
-            row2.SetValue("MetricA", 177);
-            row2.SetValue("NotExisting", 11);
+            row2.SetProperty("Id", new Guid("a776fd76-f2a8-4e09-9e69-b6d08e96c075"));
+            row2.SetProperty("PersonId", 101);
+            row2.SetProperty("Weight", 69.2m);
+            row2.SetProperty("PersonMetaKey", (short)12);
+            row2.SetProperty("IQ", 101.6m);
+            row2.SetProperty("Temper", (short)4);
+            row2.SetProperty("PersonOrdNumber", (byte)3);
+            row2.SetProperty("MetricB", -3);
+            row2.SetProperty("MetricA", 177);
+            row2.SetProperty("NotExisting", 11);
 
             var row3 = new
             {
@@ -315,7 +317,7 @@ CREATE TABLE [SmallTable](
             {
                 var originalRow = rows[i];
                 var cleanOriginalRow = new DynamicRow(originalRow);
-                cleanOriginalRow.DeleteValue("NotExisting");
+                cleanOriginalRow.RemoveProperty("NotExisting");
 
                 var originalRowJson = JsonConvert.SerializeObject(cleanOriginalRow);
                 var loadedJson = JsonConvert.SerializeObject(loadedRows[i]);
@@ -334,7 +336,7 @@ CREATE TABLE [SmallTable](
 
             var superRow = this.CreateSuperTableRowDto();
             var dynamicRow = new DynamicRow(superRow);
-            dynamicRow.DeleteValue("NotExisting");
+            dynamicRow.RemoveProperty("NotExisting");
 
             dynamic row = dynamicRow;
 
@@ -444,7 +446,7 @@ CREATE TABLE [MyTab](
             };
 
             var row2 = new DynamicRow();
-            row2.SetValue("NonExisting", 777);
+            row2.SetProperty("NonExisting", 777);
 
             var row3 = new
             {
@@ -512,7 +514,7 @@ CREATE TABLE [MyTab](
             var ex = Assert.Throws<TauDbException>(() => cruder.InsertRow("SmallTable", row));
 
             // Assert
-            Assert.That(ex, Has.Message.EqualTo($"Column 'NotExisting' does not exist."));
+            Assert.That(ex, Has.Message.EqualTo($"Column 'NotExisting' not found in table 'SmallTable'."));
         }
 
         [Test]
@@ -571,7 +573,7 @@ CREATE TABLE [MyTab](
             // Assert
             Assert.That(ex,
                 Has.Message.EqualTo(
-                    "Could not transform value '' of type 'System.DBNull'. Table name is 'SuperTable'. Column name is 'TheGuid'."));
+                    "Failed to apply value to DB command. See inner exception for details. Table: 'SuperTable', column: 'TheGuid', value: 'System.DBNull'."));
         }
 
         #endregion
@@ -597,16 +599,16 @@ CREATE TABLE [MyTab](
             };
 
             var row2 = new DynamicRow();
-            row2.SetValue("Id", new Guid("22222222-2222-2222-2222-222222222222"));
-            row2.SetValue("PersonId", 101);
-            row2.SetValue("Weight", 69.2m);
-            row2.SetValue("PersonMetaKey", (short)12);
-            row2.SetValue("IQ", 101.6m);
-            row2.SetValue("Temper", (short)4);
-            row2.SetValue("PersonOrdNumber", (byte)3);
-            row2.SetValue("MetricB", -3);
-            row2.SetValue("MetricA", 177);
-            row2.SetValue("NotExisting", 7);
+            row2.SetProperty("Id", new Guid("22222222-2222-2222-2222-222222222222"));
+            row2.SetProperty("PersonId", 101);
+            row2.SetProperty("Weight", 69.2m);
+            row2.SetProperty("PersonMetaKey", (short)12);
+            row2.SetProperty("IQ", 101.6m);
+            row2.SetProperty("Temper", (short)4);
+            row2.SetProperty("PersonOrdNumber", (byte)3);
+            row2.SetProperty("MetricB", -3);
+            row2.SetProperty("MetricA", 177);
+            row2.SetProperty("NotExisting", 7);
 
             var row3 = new
             {
@@ -666,7 +668,7 @@ ORDER BY
             for (var i = 0; i < loadedRows.Count; i++)
             {
                 var cleanOriginalRow = new DynamicRow(rows[i]);
-                cleanOriginalRow.DeleteValue("NotExisting");
+                cleanOriginalRow.RemoveProperty("NotExisting");
 
                 var json = JsonConvert.SerializeObject(cleanOriginalRow, Formatting.Indented);
                 var loadedJson = JsonConvert.SerializeObject(loadedRows[i], Formatting.Indented);
@@ -839,7 +841,7 @@ ORDER BY
             var ex = Assert.Throws<TauDbException>(() => cruder.InsertRows("SmallTable", rows, x => true));
 
             // Assert
-            Assert.That(ex, Has.Message.EqualTo("Column 'NotExisting' does not exist."));
+            Assert.That(ex, Has.Message.EqualTo("Column 'NotExisting' not found in table 'SmallTable'."));
         }
 
         [Test]
@@ -866,7 +868,7 @@ ORDER BY
             var ex = Assert.Throws<ArgumentException>(() => cruder.InsertRows("SmallTable", rows, x => true));
 
             // Assert
-            Assert.That(ex, Has.Message.StartsWith("'values' does not contain property representing column 'TheInt'."));
+            Assert.That(ex, Has.Message.StartsWith("'values' does not contain property representing column 'TheInt' of table 'SmallTable'."));
         }
 
         [Test]
@@ -956,7 +958,7 @@ ORDER BY
             // Assert
             Assert.That(ex,
                 Has.Message.StartWith(
-                    "Could not transform value '' of type 'System.DBNull'. Table name is 'SmallTable'. Column name is 'TheInt'."));
+                    "Failed to apply value to DB command. See inner exception for details. Table: 'SmallTable', column: 'TheInt', value: 'System.DBNull'."));
         }
 
         #endregion
@@ -973,18 +975,19 @@ ORDER BY
             var sb1 = new StringBuilder();
 
             // Act
-            Action<string, object, int> callback = (tableName, row, index) =>
+            Func<TableMold, object, int, object> callback = (tableMold, row, index) =>
             {
-                sb1.Append($"Table name: {tableName}; index: {index}");
+                sb1.Append($"Table name: {tableMold.Name}; index: {index}");
+                return row;
             };
 
-            cruder.RowInsertedCallback = callback;
+            cruder.BeforeInsertRow = callback;
 
             cruder.InsertRow("SmallTable", new object());
-            var callback1 = cruder.RowInsertedCallback;
+            var callback1 = cruder.BeforeInsertRow;
 
-            cruder.RowInsertedCallback = null;
-            var callback2 = cruder.RowInsertedCallback;
+            cruder.BeforeInsertRow = null;
+            var callback2 = cruder.BeforeInsertRow;
 
             // Assert
             var s = sb1.ToString();
@@ -1004,16 +1007,22 @@ ORDER BY
             var sb1 = new StringBuilder();
 
             // Act
-            cruder.RowInsertedCallback = (tableName, row, index) =>
+            cruder.BeforeInsertRow = (table, row, index) =>
             {
-                sb1.Append($"Table name: {tableName}; index: {index}");
+                sb1.Append($"Before insertion. Table name: {table.Name}; index: {index}. ");
+                return row;
+            };
+
+            cruder.AfterInsertRow = (table, row, index) =>
+            {
+                sb1.Append($"After insertion. Table name: {table.Name}; index: {index}.");
             };
 
             cruder.InsertRow("SmallTable", new object());
 
             // Assert
             var s = sb1.ToString();
-            Assert.That(s, Is.EqualTo("Table name: SmallTable; index: 0"));
+            Assert.That(s, Is.EqualTo("Before insertion. Table name: SmallTable; index: 0. After insertion. Table name: SmallTable; index: 0."));
         }
 
         [Test]
@@ -1026,9 +1035,10 @@ ORDER BY
             var sb1 = new StringBuilder();
 
             // Act
-            cruder.RowInsertedCallback = (tableName, row, index) =>
+            cruder.BeforeInsertRow = (table, row, index) =>
             {
-                sb1.AppendLine($"Table name: {tableName}; index: {index}; int: {((dynamic)row).TheInt}");
+                sb1.AppendLine($"Table name: {table.Name}; index: {index}; int: {((dynamic)row).TheInt}");
+                return row;
             };
 
             cruder.InsertRows(
@@ -1066,7 +1076,7 @@ Table name: SmallTable; index: 1; int: 22
 
             var superRow = this.CreateSuperTableRowDto();
             var dynamicRow = new DynamicRow(superRow);
-            dynamicRow.DeleteValue("NotExisting");
+            dynamicRow.RemoveProperty("NotExisting");
 
             dynamic row = dynamicRow;
 
@@ -1095,7 +1105,7 @@ Table name: SmallTable; index: 1; int: 22
 
             var superRow = this.CreateSuperTableRowDto();
             var dynamicRow = new DynamicRow(superRow);
-            dynamicRow.DeleteValue("NotExisting");
+            dynamicRow.RemoveProperty("NotExisting");
 
             dynamic row = dynamicRow;
 
@@ -1142,7 +1152,7 @@ Table name: SmallTable; index: 1; int: 22
             IDbCruder cruder = new SQLiteCruder(this.Connection);
             var strongTypedRow = this.CreateSuperTableRowDto();
             var dynamicRow = new DynamicRow(strongTypedRow);
-            dynamicRow.DeleteValue("NotExisting");
+            dynamicRow.RemoveProperty("NotExisting");
 
             dynamic row = dynamicRow;
 
@@ -1224,7 +1234,7 @@ Table name: SmallTable; index: 1; int: 22
 
         {
             // Arrange
-            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo int)"); // no PK
+            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo integer)"); // no PK
             IDbCruder cruder = new SQLiteCruder(this.Connection);
 
             // Act
@@ -1297,11 +1307,11 @@ Table name: SmallTable; index: 1; int: 22
             // Assert
             var row = (DynamicRow)rows[0];
             Assert.That(row.GetDynamicMemberNames().Count(), Is.EqualTo(1));
-            Assert.That(row.GetValue("Moment"), Is.EqualTo(DateTime.Parse("2020-01-01T05:05:05")));
+            Assert.That(row.GetProperty("Moment"), Is.EqualTo(DateTime.Parse("2020-01-01T05:05:05")));
 
             row = rows[1];
             Assert.That(row.GetDynamicMemberNames().Count(), Is.EqualTo(1));
-            Assert.That(row.GetValue("Moment"), Is.EqualTo(DateTime.Parse("2020-02-02T06:06:06")));
+            Assert.That(row.GetProperty("Moment"), Is.EqualTo(DateTime.Parse("2020-02-02T06:06:06")));
         }
 
         [Test]
@@ -1385,10 +1395,10 @@ Table name: SmallTable; index: 1; int: 22
             };
 
             var update2 = new DynamicRow();
-            update2.SetValue("Id", id);
-            update2.SetValue("TheDateTime", DateTime.Parse("1978-07-05T08:08:08"));
-            update2.SetValue("TheTime", TimeSpan.Parse("11:11:11"));
-            update2.SetValue("NotExisting", 777);
+            update2.SetProperty("Id", id);
+            update2.SetProperty("TheDateTime", DateTime.Parse("1978-07-05T08:08:08"));
+            update2.SetProperty("TheTime", TimeSpan.Parse("11:11:11"));
+            update2.SetProperty("NotExisting", 777);
 
             var update3 = new
             {
@@ -1490,7 +1500,7 @@ Table name: SmallTable; index: 1; int: 22
             };
 
             var updateDynamic = new DynamicRow(updateDto);
-            updateDynamic.DeleteValue("NotExisting");
+            updateDynamic.RemoveProperty("NotExisting");
 
             IDbCruder cruder = new SQLiteCruder(this.Connection);
 
@@ -1594,7 +1604,7 @@ Table name: SmallTable; index: 1; int: 22
             };
 
             var update = new DynamicRow(updateDto);
-            update.DeleteValue("NotExisting");
+            update.RemoveProperty("NotExisting");
 
             IDbCruder cruder = new SQLiteCruder(this.Connection);
 
@@ -1721,7 +1731,7 @@ Table name: SmallTable; index: 1; int: 22
             var ex = Assert.Throws<TauDbException>(() => cruder.UpdateRow("SuperTable", update));
 
             // Assert
-            Assert.That(ex, Has.Message.EqualTo("Column 'NotExisting' does not exist."));
+            Assert.That(ex, Has.Message.EqualTo("Column 'NotExisting' not found in table 'SuperTable'."));
         }
 
         [Test]
@@ -1729,7 +1739,7 @@ Table name: SmallTable; index: 1; int: 22
 
         {
             // Arrange
-            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo int)"); // no PK
+            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo integer)"); // no PK
             IDbCruder cruder = new SQLiteCruder(this.Connection);
 
             // Act
@@ -1837,15 +1847,14 @@ Table name: SmallTable; index: 1; int: 22
         public void DeleteRow_TableHasNoPrimaryKey_ThrowsArgumentException()
         {
             // Arrange
-            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo int)"); // no PK
+            this.Connection.ExecuteSingleSql("CREATE TABLE [dummy](Foo integer)"); // no PK
             IDbCruder cruder = new SQLiteCruder(this.Connection);
 
             // Act
-            var ex = Assert.Throws<ArgumentException>((() => cruder.DeleteRow("dummy", 1)));
+            var ex = Assert.Throws<TauDbException>((() => cruder.DeleteRow("dummy", 1)));
 
             // Assert
             Assert.That(ex, Has.Message.StartsWith("Table 'dummy' does not have a primary key."));
-            Assert.That(ex.ParamName, Is.EqualTo("tableName"));
         }
 
         [Test]
