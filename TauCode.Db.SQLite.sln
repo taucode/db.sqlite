@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30517.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2B954FD8-EA7B-4208-BE87-DA158109AB03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{32316E0F-61A2-4CF9-A2D5-761097F9BA3A}"
 	ProjectSection(SolutionItems) = preProject
 		build\azure-pipelines-dev.yml = build\azure-pipelines-dev.yml
-		build\azure-pipelines.yml = build\azure-pipelines.yml
+		build\azure-pipelines-main.yml = build\azure-pipelines-main.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{64246254-0836-4187-A54A-A7033F7FC9E6}"
@@ -24,9 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{F960B03E
 		nuget\TauCode.Db.SQLite.nuspec = nuget\TauCode.Db.SQLite.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite", "src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj", "{112D29F2-8090-4CFA-931F-2235020EF32A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Db.SQLite", "src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj", "{112D29F2-8090-4CFA-931F-2235020EF32A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Db.SQLite.Tests", "test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj", "{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Db.SQLite.Tests", "test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj", "{1E00D3E4-B8AB-49D0-ADD6-8A3E44BC096E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,22 @@
+﻿[
+  {
+    "Id": 1,
+    "Tag": "df601c43-fb4c-4a4d-ab05-e6bf5cfa68d1",
+    "IsChecked": true,
+    "Birthday": "Month_MAY 13, 1939",
+    "FirstName": "Harvey",
+    "LastName": "Keitel",
+    "Initials": "HK",
+    "Gender": 100
+  },
+  {
+    "Id": 2,
+    "Tag": "374d413a-6287-448d-a4c1-918067c2312c",
+    "IsChecked": null,
+    "Birthday": "Month_AUG 19, 1965",
+    "FirstName": "Maria",
+    "LastName": "Medeiros",
+    "Initials": "MM",
+    "Gender": 200
+  }
+]

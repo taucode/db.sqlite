@@ -1,3 +1,15 @@
-2020-09-24
+﻿2020-09-24
 ==========
     1. Created this project in order to move SQLite-specific functions from TauCode.Db libary.
+
+2020-09-24
+==========
+    1. Huge refactoring.
+
+2021-04-04
+==========
+    1. Resurrection.
+
+2021-04-20
+==========
+    1. Ported from lab.

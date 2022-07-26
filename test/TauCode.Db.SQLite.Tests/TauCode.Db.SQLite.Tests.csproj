@@ -1,15 +1,141 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-
+    <TargetFramework>net6</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <None Remove="CommonResources\Assets\PicHarvey1.png" />
+    <None Remove="CommonResources\Assets\PicHarvey1.txt" />
+    <None Remove="CommonResources\Assets\PicHarvey1Thumb.png" />
+    <None Remove="CommonResources\Assets\PicHarvey1Thumb.txt" />
+    <None Remove="CommonResources\Assets\PicHarvey2.png" />
+    <None Remove="CommonResources\Assets\PicHarvey2.txt" />
+    <None Remove="CommonResources\Assets\PicHarvey2Thumb.png" />
+    <None Remove="CommonResources\Assets\PicHarvey2Thumb.txt" />
+    <None Remove="CommonResources\Assets\PicMaria1.png" />
+    <None Remove="CommonResources\Assets\PicMaria1.txt" />
+    <None Remove="CommonResources\Assets\PicMaria1Thumb.png" />
+    <None Remove="CommonResources\Assets\PicMaria1Thumb.txt" />
+    <None Remove="CommonResources\Assets\PicMaria2.png" />
+    <None Remove="CommonResources\Assets\PicMaria2.txt" />
+    <None Remove="CommonResources\Assets\PicMaria2Thumb.png" />
+    <None Remove="CommonResources\Assets\PicMaria2Thumb.txt" />
+    <None Remove="CommonResources\crebase.sql" />
+    <None Remove="CommonResources\data-types.txt" />
+    <None Remove="CommonResources\SuperTable.sql" />
+    <None Remove="DbCruder\TestResources\InsertRows.sql" />
+    <None Remove="DbMigrator\TestResources\Input\MigrateDataCustomInput.json" />
+    <None Remove="DbMigrator\TestResources\Input\MigrateDataInput.json" />
+    <None Remove="DbMigrator\TestResources\Input\MigrateMetadataCustomInput.json" />
+    <None Remove="DbMigrator\TestResources\Input\MigrateMetadataInput.json" />
+    <None Remove="DbMigrator\TestResources\Output\MigratedDbCustomOutput.sql" />
+    <None Remove="DbMigrator\TestResources\Output\MigratedDbOutput.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_NonUniqueIndex_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_NonUniqueIndex_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_UniqueIndex_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_UniqueIndex_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_NoConstraints_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_NoConstraints_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildInsertScript\BuildInsertScript_AllColumns_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildInsertScript\BuildInsertScript_AllColumns_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_AllColumns_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_AllColumns_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_AllColumns_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_AllColumns_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_DoubleQuotes.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildUpdateScript\BuildUpdateScript_AllColumns_Brackets.sql" />
+    <None Remove="DbScriptBuilder\TestResources\BuildUpdateScript\BuildUpdateScript_AllColumns_DoubleQuotes.sql" />
+    <None Remove="DbSerializer\TestResources\CreatePersonDb.sql" />
+    <None Remove="DbSerializer\TestResources\Input\DeserializeDbBadInput.json" />
+    <None Remove="DbSerializer\TestResources\Input\DeserializeDbInput.json" />
+    <None Remove="DbSerializer\TestResources\Input\DeserializeTableBadInput.json" />
+    <None Remove="DbSerializer\TestResources\Input\DeserializeTableInput.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeDbCustomResult.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeDbMetadataCustomResult.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeDbMetadataResult.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeDbResult.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeTableMetadataResult.json" />
+    <None Remove="DbSerializer\TestResources\Output\SerializeTableResult.json" />
+    <None Remove="DbSerializer\TestResources\SeedPersonDb.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey1.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey1.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey1Thumb.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey1Thumb.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey2.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey2.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey2Thumb.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicHarvey2Thumb.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria1.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria1.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria1Thumb.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria1Thumb.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria2.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria2.txt" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria2Thumb.png" />
+    <EmbeddedResource Include="CommonResources\Assets\PicMaria2Thumb.txt" />
+    <EmbeddedResource Include="CommonResources\crebase.sql" />
+    <EmbeddedResource Include="CommonResources\data-types.txt" />
+    <EmbeddedResource Include="CommonResources\SuperTable.sql" />
+    <EmbeddedResource Include="DbCruder\TestResources\InsertRows.sql" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Input\MigrateDataCustomInput.json" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Input\MigrateDataInput.json" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Input\MigrateMetadataCustomInput.json" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Input\MigrateMetadataInput.json" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Output\MigratedDbCustomOutput.sql" />
+    <EmbeddedResource Include="DbMigrator\TestResources\Output\MigratedDbOutput.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_NonUniqueIndex_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_NonUniqueIndex_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_UniqueIndex_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateIndexScript\BuildCreateIndexScript_UniqueIndex_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_NoConstraints_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildCreateTableScript\BuildCreateTableScript_NoConstraints_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildInsertScript\BuildInsertScript_AllColumns_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildInsertScript\BuildInsertScript_AllColumns_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_AllColumns_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_AllColumns_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectAllScript\BuildSelectAllScript_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_AllColumns_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_AllColumns_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildSelectByPrimaryKeyScript\BuildSelectByPrimaryKeyScript_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildUpdateScript\BuildUpdateScript_AllColumns_Brackets.sql" />
+    <EmbeddedResource Include="DbScriptBuilder\TestResources\BuildUpdateScript\BuildUpdateScript_AllColumns_DoubleQuotes.sql" />
+    <EmbeddedResource Include="DbSerializer\TestResources\CreatePersonDb.sql" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Input\DeserializeDbBadInput.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Input\DeserializeDbInput.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Input\DeserializeTableBadInput.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Input\DeserializeTableInput.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeDbCustomResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeDbMetadataCustomResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeDbMetadataResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeDbResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeTableMetadataResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\Output\SerializeTableResult.json" />
+    <EmbeddedResource Include="DbSerializer\TestResources\SeedPersonDb.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator.Runner" Version="3.2.15" />
+    <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TauCode.Db.SQLite\TauCode.Db.SQLite.csproj" />
   </ItemGroup>
 
 </Project>

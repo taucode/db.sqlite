@@ -1,0 +1,11 @@
+SELECT
+    [Id],
+    [Height],
+    [Photo],
+    [EnglishDescription],
+    [UnicodeDescription],
+    [PersonMetaKey],
+    [PersonOrdNumber],
+    [PersonId]
+FROM
+    [PersonData]

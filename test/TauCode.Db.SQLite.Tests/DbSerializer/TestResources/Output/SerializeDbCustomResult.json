@@ -1,0 +1,76 @@
+﻿{
+  "Person": [
+    {
+      "Id": 1,
+      "Tag": "df601c43-fb4c-4a4d-ab05-e6bf5cfa68d1",
+      "IsChecked": 1,
+      "Birthday": "1939-05-13T00:00:00",
+      "FirstName": "Harvey",
+      "LastName": "Keitel",
+      "Initials": "HK",
+      "Gender": "Male"
+    },
+    {
+      "Id": 2,
+      "Tag": "374d413a-6287-448d-a4c1-918067c2312c",
+      "IsChecked": null,
+      "Birthday": "1965-08-19T00:00:00",
+      "FirstName": "Maria",
+      "LastName": "Medeiros",
+      "Initials": "MM",
+      "Gender": "Female"
+    }
+  ],
+  "PersonData": [
+    {
+      "Id": 101,
+      "PersonId": 1,
+      "BestAge": 42,
+      "Hash": 791888333,
+      "Height": 175.5,
+      "Weight": 68.9,
+      "UpdatedAt": "1996-11-02T11:12:13",
+      "Signature": "3v7Kdw=="
+    },
+    {
+      "Id": 201,
+      "PersonId": 2,
+      "BestAge": 26,
+      "Hash": 901014134123412,
+      "Height": 168.5,
+      "Weight": 54.7,
+      "UpdatedAt": "1994-01-11T16:01:02",
+      "Signature": "FZmquw=="
+    }
+  ],
+  "WorkInfo": [
+    {
+      "Id": 1001,
+      "PersonId": 1,
+      "PositionCode": "Fixer",
+      "PositionDescription": "Человек, решающий пробемы",
+      "PositionDescriptionEn": "Man who fixes problems",
+      "HiredOn": "1990-02-07T11:12:44",
+      "WorkStartDayTime": "07:11:22",
+      "Salary": 20100.2,
+      "Bonus": 10500.7,
+      "OvertimeCoef": 1.2,
+      "WeekendCoef": 3.7,
+      "Url": "https://example.com/wolf"
+    },
+    {
+      "Id": 2001,
+      "PersonId": 2,
+      "PositionCode": "Lover",
+      "PositionDescription": "Девушка, любящая Бутча",
+      "PositionDescriptionEn": "The girl who loves Butch",
+      "HiredOn": "1989-08-11T01:08:05",
+      "WorkStartDayTime": "01:44:33",
+      "Salary": 700.1,
+      "Bonus": 80.33,
+      "OvertimeCoef": 1.7,
+      "WeekendCoef": 2.6,
+      "Url": "https://example.com/fabienne"
+    }
+  ]
+}

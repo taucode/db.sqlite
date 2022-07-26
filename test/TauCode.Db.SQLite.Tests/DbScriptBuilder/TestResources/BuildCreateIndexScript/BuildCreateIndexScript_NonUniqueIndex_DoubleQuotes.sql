@@ -1,0 +1,1 @@
+CREATE INDEX "IX_healthInfo_metricAmetricB" ON "HealthInfo"("MetricA" ASC, "MetricB" DESC)
