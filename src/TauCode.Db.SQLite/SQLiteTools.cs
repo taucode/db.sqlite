@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using TauCode.Db.Model;
-using TauCode.Extensions;
+using TauCode.IO;
 
 namespace TauCode.Db.SQLite
 {
@@ -37,7 +37,7 @@ namespace TauCode.Db.SQLite
         /// </returns>
         public static Tuple<string, string> CreateSQLiteDatabase()
         {
-            var tempDbFilePath = FileTools.CreateTempFilePath("zunit", ".sqlite");
+            var tempDbFilePath = PathExtensions.CreateTempFilePath("zunit", ".sqlite");
             SQLiteConnection.CreateFile(tempDbFilePath);
 
             var connectionString = $"Data Source={tempDbFilePath};Version=3;";

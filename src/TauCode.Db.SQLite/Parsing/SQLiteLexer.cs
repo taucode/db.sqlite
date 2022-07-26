@@ -1,38 +1,54 @@
-﻿using TauCode.Db.SQLite.Parsing.TokenProducers;
+﻿using System;
+using TauCode.Data.Text;
 using TauCode.Extensions;
-using TauCode.Parsing.Lexing;
-using TauCode.Parsing.Lexing.StandardProducers;
+using TauCode.Parsing;
+using TauCode.Parsing.TokenProducers;
 
 namespace TauCode.Db.SQLite.Parsing
 {
-    public class SQLiteLexer : LexerBase
+    internal class SQLiteLexer : Lexer
     {
-        protected override ITokenProducer[] CreateProducers()
+        internal SQLiteLexer()
         {
-            return new ITokenProducer[]
+            Producers = new ILexicalTokenProducer[]
             {
                 new WhiteSpaceProducer(),
-                new WordProducer(),
-                new SqlPunctuationProducer(),
-                new IntegerProducer(IsAcceptableIntegerTerminator),
-                new SqlStringProducer(),
-                new SqlIdentifierProducer(),
+                new Int32Producer(IntegerTerminator),
+                new WordProducer(WordTerminator),
+                new PunctuationProducer(
+                    new char[]
+                    {
+                        '(',
+                        ')',
+                        ',',
+                    },
+                    (input, index) => true),
+                new SqlIdentifierProducer(
+                    SQLiteParsingHelper.IsReservedWord,
+                    WordTerminator)
+                {
+                    Delimiter =
+                        SqlIdentifierDelimiter.None |
+                        SqlIdentifierDelimiter.Brackets |
+                        SqlIdentifierDelimiter.DoubleQuotes |
+                        0,
+                },
+                new SqlStringProducer(WordTerminator),
             };
         }
 
-        private bool IsAcceptableIntegerTerminator(char c)
+        private static bool WordTerminator(ReadOnlySpan<char> input, int index)
         {
-            if (LexingHelper.IsInlineWhiteSpaceOrCaretControl(c))
-            {
-                return true;
-            }
+            var c = input[index];
+            var result = c.IsIn(' ', '\t', '\r', '\n', ',', '(', ')'); // todo: hashset
+            return result;
+        }
 
-            if (c.IsIn('(', ')', ','))
-            {
-                return true;
-            }
-
-            return false;
+        private static bool IntegerTerminator(ReadOnlySpan<char> input, int index)
+        {
+            var c = input[index];
+            var result = c.IsIn(' ', '\t', '\r', '\n', ',', '(', ')'); // todo: hashset
+            return result;
         }
     }
 }
