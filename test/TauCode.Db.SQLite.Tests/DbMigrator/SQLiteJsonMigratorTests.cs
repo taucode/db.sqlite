@@ -363,7 +363,7 @@ namespace TauCode.Db.SQLite.Tests.DbMigrator
             Assert.That(mariaPhoto1["TakenAt"], Is.EqualTo(DateTime.Parse("1998-04-05T08:09:22")));
             Assert.That(mariaPhoto1["ValidUntil"], Is.EqualTo(DateTime.Parse("1999-04-05")));
 
-            var mariaPhoto2 = TestHelper.LoadRow(this.Connection,  "Photo", "PM-2");
+            var mariaPhoto2 = TestHelper.LoadRow(this.Connection, "Photo", "PM-2");
             Assert.That(mariaPhoto2["Id"], Is.EqualTo("PM-2"));
             Assert.That(mariaPhoto2["PersonDataId"], Is.EqualTo(201));
             Assert.That(mariaPhoto2["Content"],

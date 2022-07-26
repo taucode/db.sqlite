@@ -220,7 +220,7 @@ ORDER BY
             var parser = SQLiteParser.Instance;
             var objs = parser.Parse(sql);
 
-            if (objs.Length != 1 || !(objs.Single() is TableMold))
+            if (objs.Count != 1 || !(objs.Single() is TableMold))
             {
                 throw new ArgumentException($"Could not build table definition from script:{Environment.NewLine}{sql}",
                     nameof(sql));
