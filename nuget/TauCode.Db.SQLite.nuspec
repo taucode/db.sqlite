@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.Db.SQLite</id>
-    <version>1.5.2-alpha.1.2022-08-08.00-00</version>
+    <version>1.5.3-alpha.1.2022-08-08.00-00</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
       SQLite-specific database functionality
     </description>
     <releaseNotes>
-      Developing release 1.5.2.
+      Developing release 1.5.3.
     </releaseNotes>
     <tags>taucode db database sqlite</tags>
     <dependencies>
