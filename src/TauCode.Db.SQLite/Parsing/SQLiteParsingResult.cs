@@ -1,55 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TauCode.Db.Model;
+﻿using TauCode.Db.Model;
 using TauCode.Parsing;
 
 // todo regions
 // todo unused methods
-namespace TauCode.Db.SQLite.Parsing
+namespace TauCode.Db.SQLite.Parsing;
+
+internal class SQLiteParsingResult : IParsingResult
 {
-    internal class SQLiteParsingResult : IParsingResult
+    public List<object> Clauses { get; } = new List<object>();
+
+    public void AddCreateClausePlaceholder()
     {
-        public List<object> Clauses { get; } = new List<object>();
+        this.Clauses.Add("CREATE");
+    }
 
-        public void AddCreateClausePlaceholder()
+    public void ReplaceCreateClausePlaceholderWithCreateTableInfo()
+    {
+        var last = this.Clauses.Last();
+        if ((string)last != "CREATE")
         {
-            this.Clauses.Add("CREATE");
+            throw new NotImplementedException();
         }
 
-        public void ReplaceCreateClausePlaceholderWithCreateTableInfo()
-        {
-            var last = this.Clauses.Last();
-            if ((string)last != "CREATE")
-            {
-                throw new NotImplementedException();
-            }
+        this.Clauses[^1] = new TableMold();
+    }
 
-            this.Clauses[^1] = new TableMold();
+    public void ReplaceCreateClausePlaceholderWithCreateIndexInfo()
+    {
+        var last = this.Clauses.Last();
+        if ((string)last != "CREATE")
+        {
+            throw new NotImplementedException();
         }
 
-        public void ReplaceCreateClausePlaceholderWithCreateIndexInfo()
-        {
-            var last = this.Clauses.Last();
-            if ((string)last != "CREATE")
-            {
-                throw new NotImplementedException();
-            }
+        this.Clauses[^1] = new IndexMold();
+    }
 
-            this.Clauses[^1] = new IndexMold();
-        }
+    public T GetLastClause<T>()
+    {
+        var lastClause = this.Clauses.Last();
+        return (T)lastClause;
+    }
 
-        public T GetLastClause<T>()
-        {
-            var lastClause = this.Clauses.Last();
-            return (T)lastClause;
-        }
+    public int Version { get; private set; }
 
-        public int Version { get; private set; }
-
-        public void IncreaseVersion()
-        {
-            this.Version++;
-        }
+    public void IncreaseVersion()
+    {
+        this.Version++;
     }
 }

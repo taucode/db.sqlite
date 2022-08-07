@@ -1,30 +1,29 @@
-﻿using System.Data.SQLite;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Data.SQLite;
 
-namespace TauCode.Db.SQLite.Tests
+namespace TauCode.Db.SQLite.Tests;
+
+[TestFixture]
+public abstract class TestBase
 {
-    [TestFixture]
-    public abstract class TestBase
+    protected SQLiteConnection Connection { get; private set; }
+
+    [OneTimeSetUp]
+    public void OneTimeSetUpBase()
     {
-        protected SQLiteConnection Connection { get; private set; }
+        this.Connection = TestHelper.CreateConnection();
+    }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUpBase()
-        {
-            this.Connection = TestHelper.CreateConnection();
-        }
+    [OneTimeTearDown]
+    public void OneTimeTearDownBase()
+    {
+        this.Connection.Dispose();
+        this.Connection = null;
+    }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDownBase()
-        {
-            this.Connection.Dispose();
-            this.Connection = null;
-        }
-
-        [SetUp]
-        public void SetUpBase()
-        {
-            this.Connection.PurgeDatabase();
-        }
+    [SetUp]
+    public void SetUpBase()
+    {
+        this.Connection.PurgeDatabase();
     }
 }
