@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.Db.SQLite</id>
-    <version>1.5.2</version>
+    <version>1.7.0</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,15 +13,15 @@
       SQLite-specific database functionality
     </description>
     <releaseNotes>
-      Release 1.5.2.
+      Release 1.7.0.
     </releaseNotes>
     <tags>taucode db database sqlite</tags>
     <dependencies>
       <group targetFramework=".NETCoreApp6.0">
-        <dependency id="System.Data.SQLite.Core" version="1.0.116" />
-        <dependency id="TauCode.Db" version="1.5.0" />
-        <dependency id="TauCode.IO" version="1.5.0" />
-        <dependency id="TauCode.Parsing" version="1.5.1" />
+        <dependency id="System.Data.SQLite.Core" version="1.0.117" />
+        <dependency id="TauCode.Db" version="1.7.0" />
+        <dependency id="TauCode.IO" version="1.7.0" />
+        <dependency id="TauCode.Parsing" version="1.7.0" />
       </group>
     </dependencies>
   </metadata>

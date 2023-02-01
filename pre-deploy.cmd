@@ -1,9 +1,9 @@
 dotnet restore
 
-dotnet build --configuration Debug
-dotnet build --configuration Release
+dotnet build TauCode.Db.SQLite.sln -c Debug
+dotnet build TauCode.Db.SQLite.sln -c Release
 
-dotnet test -c Debug .\test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj
-dotnet test -c Release .\test\TauCode.Db.SQLite.Tests\TauCode.Db.SQLite.Tests.csproj
+dotnet test TauCode.Db.SQLite.sln -c Debug
+dotnet test TauCode.Db.SQLite.sln -c Release
 
 nuget pack nuget\TauCode.Db.SQLite.nuspec
