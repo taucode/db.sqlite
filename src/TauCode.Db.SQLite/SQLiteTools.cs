@@ -34,7 +34,7 @@ public static class SQLiteTools
     /// </returns>
     public static Tuple<string, string> CreateSQLiteDatabase()
     {
-        var tempDbFilePath = PathExtensions.CreateTempFilePath("zunit", ".sqlite");
+        var tempDbFilePath = FileSystemHelper.CreateTempFilePath("zunit", ".sqlite");
         SQLiteConnection.CreateFile(tempDbFilePath);
 
         var connectionString = $"Data Source={tempDbFilePath};Version=3;";
