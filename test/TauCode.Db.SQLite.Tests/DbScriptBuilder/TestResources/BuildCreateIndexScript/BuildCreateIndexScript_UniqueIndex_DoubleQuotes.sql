@@ -1,1 +1,0 @@
-CREATE UNIQUE INDEX "UX_workInfo_Hash" ON "WorkInfo"("Hash" ASC)
