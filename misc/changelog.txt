@@ -1,4 +1,8 @@
-﻿2020-09-24
+﻿2023-05-12
+==========
+    1. Refactoring for Econera.Money.
+
+2020-09-24
 ==========
     1. Created this project in order to move SQLite-specific functions from TauCode.Db libary.
 

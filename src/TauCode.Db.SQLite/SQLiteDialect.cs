@@ -1,19 +1,14 @@
 ﻿namespace TauCode.Db.SQLite;
 
-[DbDialect(
-    typeof(SQLiteDialect),
-    "reserved-words.txt",
-    "[],\"\"")]
-public class SQLiteDialect : DbDialectBase
+public class SQLiteDialect : Dialect
 {
-    public static readonly SQLiteDialect Instance = new SQLiteDialect();
+    public override IUtilityFactory Factory => SQLiteUtilityFactory.Instance;
+    public override string Name => "SQL Server";
 
-    private SQLiteDialect()
-        : base(DbProviderNames.SQLite)
+    public override string Undelimit(string identifier)
     {
+        // todo temp!
+
+        return identifier.Replace("[", "").Replace("]", "");
     }
-
-    public override bool CanDecorateTypeIdentifier => false;
-
-    public override IDbUtilityFactory Factory => SQLiteUtilityFactory.Instance;
 }
