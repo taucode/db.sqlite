@@ -1,93 +1,105 @@
 ﻿using System.Data;
 using System.Data.SQLite;
-using TauCode.Db.DbValueConverters;
-using TauCode.Db.Model;
-using TauCode.Db.SQLite.DbValueConverters;
+using TauCode.Db.Model.Interfaces;
 
 namespace TauCode.Db.SQLite;
 
-public class SQLiteCruder : DbCruderBase
+public class SQLiteCruder : Cruder
 {
-    public SQLiteCruder(SQLiteConnection connection)
-        : base(connection, null)
+    #region ctor
+
+    public SQLiteCruder()
     {
     }
 
-    public override IDbUtilityFactory Factory => SQLiteUtilityFactory.Instance;
-    protected override IDbValueConverter CreateDbValueConverter(string tableName, ColumnMold column)
+    public SQLiteCruder(SQLiteConnection? connection)
+        : base(connection)
     {
-        var typeName = column.Type.Name.ToLowerInvariant();
 
-        switch (typeName)
+    }
+
+    #endregion
+
+    #region Overridden
+
+    public override IUtilityFactory Factory => SQLiteUtilityFactory.Instance;
+
+    protected override void TuneParameter(IDbDataParameter parameter, IColumnMold columnMold)
+    {
+        DbType dbType;
+        int size = 0;
+
+        switch (columnMold.Type.Name)
         {
+            case "bit":
+                dbType = DbType.Boolean;
+                break;
+
+            case "int":
+                dbType = DbType.Int32;
+                break;
+
+            case "smallint":
+                dbType = DbType.Int16;
+                break;
+
+            case "bigint":
+                dbType = DbType.Int64;
+                break;
+
+            case "decimal":
+                dbType = DbType.Decimal;
+                break;
+
             case "uniqueidentifier":
-                return new GuidValueConverter();
+                dbType = DbType.Guid;
+                break;
 
-            case "integer":
-                return new SQLiteIntegerValueConverter();
+            case "varchar":
+                dbType = DbType.String;
+                size = columnMold.Type.Size ?? 0;
+                break;
 
-            case "numeric":
-                return new DecimalValueConverter();
-
-            case "real":
-                return new DoubleValueConverter();
-
-            case "datetime":
-                return new DateTimeValueConverter();
-
-            case "time":
-                return new SQLiteTimeSpanValueConverter();
-
-            case "text":
-                return new StringValueConverter();
-
-            case "blob":
-                return new ByteArrayValueConverter();
+            case "datetimeoffset":
+                dbType = DbType.DateTimeOffset;
+                size = 10; // todo hardcoded; without this, command.Prepare() throws an exception.
+                break;
 
             default:
-                throw this.CreateColumnTypeNotSupportedException(typeName, column.Name, typeName);
+                throw new NotImplementedException();
+        }
+
+        parameter.DbType = dbType;
+        parameter.Size = size;
+    }
+
+    protected override void OnBeforeInsertRows(ITableMold tableMold, IRowSet rows, Func<string, bool>? fieldSelector = null)
+    {
+        var identityColumn = tableMold.Columns.SingleOrDefault(x => x.Identity != null);
+
+        if (identityColumn != null)
+        {
+            var schemaName = tableMold.SchemaName;
+            var tableName = tableMold.Name;
+
+            var sql = $@"SET IDENTITY_INSERT {schemaName}.{tableName} ON";
+            this.Connection.ExecuteSql(sql);
         }
     }
 
-    protected override IDbDataParameter CreateParameter(string tableName, ColumnMold column)
+    protected override void OnAfterInsertRows(ITableMold tableMold, IRowSet rows, Func<string, bool>? fieldSelector = null)
     {
-        const string parameterName = "parameter_name_placeholder";
-        var typeName = column.Type.Name.ToLowerInvariant();
+        var identityColumn = tableMold.Columns.SingleOrDefault(x => x.Identity != null);
 
-        switch (typeName)
+        if (identityColumn != null)
         {
-            case "uniqueidentifier":
-                return new SQLiteParameter(parameterName, DbType.Guid);
+            var schemaName = tableMold.SchemaName;
+            var tableName = tableMold.Name;
 
-            case "integer":
-                return new SQLiteParameter(parameterName, DbType.Int64);
-
-            case "numeric":
-                return new SQLiteParameter(parameterName, DbType.Decimal);
-
-            case "real":
-                return new SQLiteParameter(parameterName, DbType.Double);
-
-            case "datetime":
-                return new SQLiteParameter(parameterName, DbType.DateTime);
-
-            case "time":
-                return new SQLiteParameter(parameterName, DbType.String);
-
-            case "text":
-                return new SQLiteParameter(parameterName, DbType.String);
-
-            case "blob":
-                return new SQLiteParameter(parameterName, DbType.Binary);
-
-
-            default:
-                throw this.CreateColumnTypeNotSupportedException(tableName, column.Name, typeName);
+            var sql = $@"SET IDENTITY_INSERT {schemaName}.{tableName} OFF";
+            this.Connection.ExecuteSql(sql);
         }
     }
 
-    protected override void FitParameterValue(IDbDataParameter parameter)
-    {
-        // idle for now.
-    }
+    #endregion
 }
