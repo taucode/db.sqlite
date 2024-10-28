@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
-    <PackageReference Include="TauCode.Db" Version="1.9.1-alpha.1.2023-05-05.12-00" />
-    <PackageReference Include="TauCode.IO" Version="1.8.1-alpha.1.2023-04-10.17-01" />
-    <PackageReference Include="TauCode.Parsing" Version="1.8.1-alpha.1.2023-05-12.12-01" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="TauCode.Db" Version="2.0.1" />
+    <PackageReference Include="TauCode.IO" Version="2.0.1" />
+    <PackageReference Include="TauCode.Parsing" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
